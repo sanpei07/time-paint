@@ -80,20 +80,68 @@ export const P5Canvas = () => {
         // No continuous drawing needed for this static sketch yet
         if (modelLoaded && !sketchInitModel) {
             console.log("Draw: モデルがロードされたので、スケッチの初期化を行います。"); // 初期化開始のログ
+            p5.background(255);
             model!.setPixelFactor(3.0); // モデルの出力するストロークの長さを画面ピクセルに変換する際の倍率を設定
-            let modelZero = model!.zeroInput()
+
+
+            /*let modelZero = model!.zeroInput()
             setDx(modelZero[0])
             setDy(modelZero[1])
             setPenDown(modelZero[2])
             setPenUp(modelZero[3])
             setPenEnd(modelZero[4])
             let nRnnState = model!.zeroState();
-            setRnnState(nRnnState)
+            setRnnState(nRnnState)*/
+
+            // --- あらかじめ2本の線を描画 ---
+            let currentX = x; // setupで設定された初期X
+            let currentY = y; // setupで設定された初期Y
+            let currentRnnState = model!.zeroState(); // RNN状態を初期化
+
+            // 1本目の線
+            const line1Dx = 50;
+            const line1Dy = 20;
+            const line1Pen = [1, 0, 0]; // [penDown, penUp, penEnd] - 描画継続
+
+            p5.stroke(p5.color(0, 0, 255)); // デバッグ用に色を変更
+            p5.strokeWeight(3.0);
+            p5.line(currentX, currentY, currentX + line1Dx, currentY + line1Dy);
+
+            currentRnnState = model!.update([line1Dx, line1Dy, line1Pen[0], line1Pen[1], line1Pen[2]], currentRnnState);
+            currentX += line1Dx;
+            currentY += line1Dy;
+
+            // 2本目の線
+            const line2Dx = -30;
+            const line2Dy = 40;
+            const line2Pen = [1, 0, 0]; // [penDown, penUp, penEnd] - 描画継続
+
+            p5.stroke(p5.color(0, 255, 0)); // デバッグ用に色を変更
+            p5.strokeWeight(3.0);
+            p5.line(currentX, currentY, currentX + line2Dx, currentY + line2Dy);
+
+            currentRnnState = model!.update([line2Dx, line2Dy, line2Pen[0], line2Pen[1], line2Pen[2]], currentRnnState);
+            currentX += line2Dx;
+            currentY += line2Dy;
+            // --- ここまで初期描画 ---
+
+            // SketchRNNの初期状態を、手動描画の最後の状態に設定
+            setX(currentX);
+            setY(currentY);
+            setDx(line2Dx);
+            setDy(line2Dy);
+            setPenDown(line2Pen[0]);
+            setPenUp(line2Pen[1]);
+            setPenEnd(line2Pen[2]);
+            setPrevPen(line2Pen);
+
+            setRnnState(currentRnnState);
 
             setPrevPen([1, 0, 0])
 
             setSketchInitModel(true)
-            p5.background(255);
+            p5.stroke(p5.color(255, 0, 0)); // AIによる描画の色を元に戻す
+
         }
 
         if (sketchInitModel) {
