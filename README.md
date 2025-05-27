@@ -1,80 +1,78 @@
 # Time Paint
 
-English | [日本語](README.ja.md)
+Time Paintは、Next.jsで構築されたインタラクティブなAI駆動のお絵描きアプリケーションで、Google MagentaのSketchRNNモデルを使用してクリエイティブな絵を生成します。アプリケーションは最初に基本的な線を描き、その後、機械学習を使用して猫のようなパターンで描画を続けます。
 
-Time Paint is an interactive AI-powered drawing application built with Next.js that uses Google's Magenta SketchRNN model to generate creative drawings. The application starts by drawing initial strokes and then uses machine learning to continue the drawing in a cat-like pattern.
+## 特徴
 
-## Features
+- p5.jsを活用したインタラクティブなキャンバス描画
+- Google MagentaのSketchRNNモデルを使用したAIアシスト描画生成
+- 異なる色の段階でのリアルタイム描画表示
+- 初期ストロークに基づく自動スケッチ完成
 
-- Interactive canvas drawing powered by p5.js
-- AI-assisted drawing generation using Google's Magenta SketchRNN model
-- Real-time drawing visualization with different colored stages
-- Automatic sketch completion based on initial strokes
+## 使用技術
 
-## Technologies
-
-- [Next.js 15](https://nextjs.org) with [Turbopack](https://turbo.build/pack)
+- [Next.js 15](https://nextjs.org) と [Turbopack](https://turbo.build/pack)
 - [React 19](https://react.dev)
 - [TypeScript](https://www.typescriptlang.org/)
-- [p5.js](https://p5js.org/) via [react-p5](https://www.npmjs.com/package/react-p5)
-- [Magenta SketchRNN](https://github.com/magenta/magenta-js/tree/master/sketch) for machine learning-based drawing generation
-- [TailwindCSS](https://tailwindcss.com/) for styling
+- [p5.js](https://p5js.org/) （[react-p5](https://www.npmjs.com/package/react-p5) 経由）
+- 機械学習ベースの描画生成のための[Magenta SketchRNN](https://github.com/magenta/magenta-js/tree/master/sketch)
+- スタイリングのための[TailwindCSS](https://tailwindcss.com/)
 
-## Getting Started
+## 始め方
 
-First, install the dependencies:
+まず、依存関係をインストールします：
 
 ```bash
 npm install
 ```
 
-Then, run the development server:
+次に、開発サーバーを実行します：
 
 ```bash
 npm run dev
-# or
+# または
 yarn dev
-# or
+# または
 pnpm dev
-# or
+# または
 bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the application.
+ブラウザで [http://localhost:3000](http://localhost:3000) を開いてアプリケーションを確認できます。
 
-## How it Works
+## 動作の仕組み
 
-1. The application loads the SketchRNN model for generating cat drawings
-2. Initial strokes are drawn in different colors (blue and green)
-3. The AI model then continues the drawing with red strokes based on the initial pattern
-4. The drawing continues until the AI model determines it is complete
+1. アプリケーションは猫の描画を生成するためのSketchRNNモデルをロードします
+2. 初期ストロークが異なる色（青と緑）で描かれます
+3. AIモデルはその後、初期パターンに基づいて赤いストロークで描画を続けます
+4. AIモデルが完了したと判断するまで描画は続きます
 
-You can modify the model and parameters in the `app/components/p5/constants/index.ts` file:
-- `MODEL_URL`: The URL to the SketchRNN model (currently using a cat model)
-- `TEMPERATURE`: Controls the randomness of the generated strokes (higher values = more random)
+`app/components/p5/constants/index.ts` ファイルでモデルとパラメータを変更できます：
+- `MODEL_URL`: SketchRNNモデルのURL（現在、猫のモデルを使用しています）
+- `TEMPERATURE`: 生成されるストロークのランダム性を制御します（値が高いほどよりランダムになります）
 
-## Customization
+## カスタマイズ
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+`app/page.tsx` を変更することでページの編集を始めることができます。ファイルを編集すると、ページは自動的に更新されます。
 
-To customize the AI drawing behavior, explore the following files:
-- `app/components/p5/hooks/useP5Functions.ts`: Contains the main drawing logic
-- `app/components/p5/model/sketchRNN.ts`: Handles the interaction with the SketchRNN model
-- `app/components/p5/utils/drawing.ts`: Provides drawing utilities
+AI描画の動作をカスタマイズするには、以下のファイルを調べてみてください：
+- `app/components/p5/hooks/useP5Functions.ts`: メインの描画ロジックを含みます
+- `app/components/p5/model/sketchRNN.ts`: SketchRNNモデルとの相互作用を処理します
+- `app/components/p5/utils/drawing.ts`: 描画ユーティリティを提供します
 
-## Learn More
+## 詳細情報
 
-To learn more about Next.js, take a look at the following resources:
+Next.jsについてもっと学ぶには、以下のリソースをご覧ください：
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- [Next.jsドキュメント](https://nextjs.org/docs) - Next.jsの機能とAPIについて学びます。
+- [Learn Next.js](https://nextjs.org/learn) - インタラクティブなNext.jsチュートリアルです。
 
-For more information about Magenta and SketchRNN:
-- [Magenta Project](https://magenta.tensorflow.org/) - explore AI and creativity
-- [SketchRNN Demo](https://magenta.tensorflow.org/sketch-rnn-demo) - see examples of what the model can do
+MagentaとSketchRNNについての詳細情報：
+- [Magentaプロジェクト](https://magenta.tensorflow.org/) - AIと創造性について探求します
+- [SketchRNNデモ](https://magenta.tensorflow.org/sketch-rnn-demo) - モデルができることの例を見ます
 
-## Deploy on Vercel
+## Vercelでのデプロイ
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Next.jsアプリをデプロイする最も簡単な方法は、Next.jsの作成者による[Vercelプラットフォーム](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme)を使用することです。
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+詳細については、[Next.jsデプロイドキュメント](https://nextjs.org/docs/app/building-your-application/deploying)をご覧ください。
