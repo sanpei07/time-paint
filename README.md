@@ -1,5 +1,7 @@
 # Time Paint
 
+English | [日本語](README.ja.md)
+
 Time Paint is an interactive AI-powered drawing application built with Next.js that uses Google's Magenta SketchRNN model to generate creative drawings. The application starts by drawing initial strokes and then uses machine learning to continue the drawing in a cat-like pattern.
 
 ## Features
